@@ -1,0 +1,278 @@
+﻿{
+    "SchemaItemMappings": [
+        {
+            "Id": 3996,
+            "TargetSchemaItemId": 33306,
+            "SourceSchemaItemId": 33296,
+            "Rank": 5,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:34.945",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3995,
+            "TargetSchemaItemId": 33307,
+            "SourceSchemaItemId": 33297,
+            "Rank": 4,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:30.292",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3994,
+            "TargetSchemaItemId": 33308,
+            "SourceSchemaItemId": 33299,
+            "Rank": 3,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:13.024",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3991,
+            "TargetSchemaItemId": 33309,
+            "SourceSchemaItemId": 33304,
+            "Rank": 2,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:02.654",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3993,
+            "TargetSchemaItemId": 33310,
+            "SourceSchemaItemId": 33300,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:09.723",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3992,
+            "TargetSchemaItemId": 33311,
+            "SourceSchemaItemId": 33301,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-10-02T00:07:07.037",
+            "CreatedBy": { "Name": "Joseph" }
+        }
+    ],
+    "Id": 197,
+    "SourceInfo": {
+        "Roots": [
+            {
+                "title": "(no title)",
+                "key": 33296,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 0,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "a",
+                        "key": 33297,
+                        "type": "sequence",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "e",
+                                "key": 33299,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "f",
+                                        "key": 33300,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "g",
+                                        "key": 33301,
+                                        "type": "whole number",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "title": "b",
+                        "key": 33298,
+                        "type": "sequence",
+                        "Occurrance": { "Min": 1 },
+                        "children": [
+                            {
+                                "title": "(no title)",
+                                "key": 33302,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 0,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "c",
+                                        "key": 33303,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "d",
+                                        "key": 33304,
+                                        "type": "whole number",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "a.json",
+                    "Size": 1060,
+                    "Content": "{\r\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n    \"type\": \"object\",\r\n    \"properties\": {\r\n        \"a\": {\r\n            \"type\": \"object\",\r\n            \"properties\": {\r\n                \"e\": {\r\n                    \"type\": \"object\",\r\n                    \"properties\": {\r\n                        \"f\": {\r\n                            \"type\": \"string\"\r\n                        },\r\n                        \"g\": {\r\n                            \"type\": \"integer\"\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            \"required\": [\r\n                \"e\"\r\n            ]\r\n        },\r\n        \"b\": {\r\n            \"type\": \"array\",\r\n            \"items\": {\r\n                \"type\": \"object\",\r\n                \"properties\": {\r\n                    \"c\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"d\": {\r\n                        \"type\": \"integer\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    },\r\n    \"required\": [\r\n        \"a\",\r\n        \"b\"\r\n    ]\r\n}",
+                    "Modified": "2016-10-02T00:06:20.392",
+                    "Id": 278,
+                    "SchemaId": 892
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 892,
+        "Name": "a.json",
+        "Created": "2016-10-02T00:06:20.251+10:00"
+    },
+    "TargetInfo": {
+        "Roots": [
+            {
+                "title": "(no title)",
+                "key": 33305,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 0,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "x",
+                        "key": 33306,
+                        "type": "sequence",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "y",
+                                "key": 33307,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 0,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "z",
+                                        "key": 33308,
+                                        "type": "sequence",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        },
+                                        "children": [
+                                            {
+                                                "title": "u",
+                                                "key": 33310,
+                                                "type": "text",
+                                                "Occurrance": {
+                                                    "Min": 0,
+                                                    "Max": 1
+                                                }
+                                            },
+                                            {
+                                                "title": "v",
+                                                "key": 33311,
+                                                "type": "whole number",
+                                                "Occurrance": {
+                                                    "Min": 0,
+                                                    "Max": 1
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "w",
+                                        "key": 33309,
+                                        "type": "whole number",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "x.json",
+                    "Size": 907,
+                    "Content": "{\r\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n    \"type\": \"object\",\r\n    \"properties\": {\r\n        \"x\": {\r\n            \"type\": \"object\",\r\n            \"properties\": {\r\n                \"y\": {\r\n                    \"type\": \"object\",\r\n                    \"properties\": {\r\n                        \"z\": {\r\n                            \"type\": \"object\",\r\n                            \"properties\": {\r\n                                \"u\": {\r\n                                    \"type\": \"string\"\r\n                                },\r\n                                \"v\": {\r\n                                    \"type\": \"integer\"\r\n                                }\r\n                            }\r\n                        },\r\n                        \"w\": {\r\n                            \"type\": \"integer\"\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+                    "Modified": "2016-10-02T00:06:30.654",
+                    "Id": 279,
+                    "SchemaId": 893
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 893,
+        "Name": "x.json",
+        "Created": "2016-10-02T00:06:30.653+10:00"
+    },
+    "Title": "a.json to x.json",
+    "IsRetired": false
+}

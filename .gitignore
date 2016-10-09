@@ -3,3 +3,8 @@
 ################################################################################
 
 /MappingGenerator/bin/Debug
+/MappingGenerator/obj/Debug
+/MappingGenerator.Core/bin/Debug
+/MappingGenerator.Core/obj/Debug
+/MappingGenerator.Core.Test/bin/Debug
+/MappingGenerator.Core.Test/obj/Debug

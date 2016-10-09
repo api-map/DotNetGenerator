@@ -1,0 +1,229 @@
+﻿{
+    "SchemaItemMappings": [
+        {
+            "Id": 3977,
+            "TargetSchemaItemId": 32261,
+            "SourceSchemaItemId": 32208,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-09-15T23:32:33.607",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3976,
+            "TargetSchemaItemId": 32262,
+            "SourceSchemaItemId": 32210,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-09-15T23:32:30.328",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3979,
+            "TargetSchemaItemId": 32263,
+            "SourceSchemaItemId": 32213,
+            "Rank": 0,
+            "Description": "Calculate using current date and time",
+            "Action": {
+                "Description": "Transform",
+                "Id": 3
+            },
+            "Created": "2016-09-15T23:32:52.953",
+            "CreatedBy": { "Name": "Joseph" }
+        }
+    ],
+    "Id": 193,
+    "SourceInfo": {
+        "Roots": [
+            {
+                "title": "Person",
+                "key": 32207,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 0,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "FirstName",
+                        "key": 32208,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "MiddleName",
+                        "key": 32209,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "LastName",
+                        "key": 32210,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "Gender",
+                        "key": 32211,
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "NumberWithRange",
+                        "key": 32212,
+                        "type": "whole number",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "Birthday",
+                        "key": 32213,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "Company",
+                        "key": 32214,
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "Cars",
+                        "key": 32215,
+                        "type": "sequence",
+                        "Occurrance": { "Min": 0 },
+                        "children": [
+                            {
+                                "title": "Car",
+                                "key": 32216,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 0,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "Name",
+                                        "key": 32217,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "Manufacturer",
+                                        "key": 32218,
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "person-schema.json",
+                    "Size": 0,
+                    "Modified": "2016-09-13T22:54:08.734",
+                    "Id": 208,
+                    "SchemaId": 854
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 854,
+        "Name": "person-schema.json",
+        "Created": "2016-09-13T22:54:08.734+10:00"
+    },
+    "TargetInfo": {
+        "Roots": [
+            {
+                "title": "Example Schema",
+                "key": 32260,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 0,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "firstName",
+                        "key": 32261,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "lastName",
+                        "key": 32262,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "age",
+                        "key": 32263,
+                        "type": "whole number",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        },
+                        "description": "Age in years"
+                    }
+                ]
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "person-basic.json",
+                    "Size": 0,
+                    "Modified": "2016-09-15T23:31:37.024",
+                    "Id": 211,
+                    "SchemaId": 857
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 857,
+        "Name": "person-basic.json",
+        "Created": "2016-09-15T23:31:36.971+10:00"
+    },
+    "Title": "person-schema.json to person-basic.json",
+    "IsRetired": false
+}
