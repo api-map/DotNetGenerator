@@ -11,7 +11,7 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
     {
         public PropertyInfo TargetProperty { get { return TargetPath != null && TargetPath.Any() ? TargetPath.Last() : null; } } 
 
-        public List<PropertyInfo> TargetPath { get; set; }
+        public PropertyTraversalPath TargetPath { get; set; }
 
         public List<SchemaItemMapping> Mappings { get; set; } 
         public GeneratedMethod MappingMethod { get; set; }

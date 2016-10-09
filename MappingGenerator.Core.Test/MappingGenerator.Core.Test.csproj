@@ -92,6 +92,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="Schemas\a-to-x-diagram.png" />
     <Content Include="Schemas\a-to-x.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

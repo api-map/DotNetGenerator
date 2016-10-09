@@ -18,11 +18,11 @@ namespace Apimap.DotnetGenerator.Core.Model
         public DateTime Created { get; set; }
 
         [JsonIgnore]
-        public List<PropertyInfo> SourcePath { get; set; }
+        public PropertyTraversalPath SourcePath { get; set; }
 
         public PropertyInfo SourceProperty
         {
-            get { return SourcePath != null && SourcePath.Any() ? SourcePath.Last() : null; } 
+            get { return SourcePath != null && SourcePath.Path != null && SourcePath.Path.Any() ? SourcePath.Path.Last().Property : null; } 
         }
 
         [JsonIgnore]
@@ -42,5 +42,17 @@ namespace Apimap.DotnetGenerator.Core.Model
     {
         DirectMap = 1,
         Transform = 3
+    }
+
+    public class PropertyTraversalPath
+    {
+        public Type RootType { get; set; }
+        public List<PropertyTraversal> Path { get; set; }
+    }
+
+    public class PropertyTraversal
+    {
+        public PropertyInfo Property { get; set; }
+        public bool IsArray { get; set; }
     }
 }

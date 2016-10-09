@@ -11,6 +11,7 @@ namespace Apimap.DotnetGenerator.Core
 {
     public class Generator
     {
+
         public void Generate(TextWriter output, Dictionary<int, TypeMapping> typeMappings, Type rootSourceType, Type rootTargetType, SchemaItem rootTargetItem, Mapping mapping)
         {
             var tm = typeMappings[rootTargetItem.key];
@@ -23,7 +24,7 @@ namespace Apimap.DotnetGenerator.Core
 
             tm.MappingMethod.AppendMethodBodyCode($"var target = new {rootTargetType}();");
 
-            IterateOverChildren(rootTargetItem, typeMappings);
+            IterateOverChildren(rootTargetItem, typeMappings, rootSourceType);
 
             WriteClassBeginning(tm, output);
 
@@ -63,16 +64,16 @@ namespace Apimap.DotnetGenerator.Core
             output.WriteLine("}");
         }
 
-        private void IterateOverChildren(SchemaItem item, Dictionary<int, TypeMapping> typeMappings)
+        private void IterateOverChildren(SchemaItem item, Dictionary<int, TypeMapping> typeMappings, Type rootSourceType)
         {
             foreach (var child in item.children)
             {
                 var tm = typeMappings[item.key];
-                GenerateMappingForItem(typeMappings, child, tm.MappingMethod);
+                GenerateMappingForItem(typeMappings, child, tm.MappingMethod, rootSourceType);
             }
         }
 
-        private void GenerateMappingForItem(Dictionary<int, TypeMapping> typeMappings, SchemaItem targetItem, GeneratedMethod parentMethod)
+        private void GenerateMappingForItem(Dictionary<int, TypeMapping> typeMappings, SchemaItem targetItem, GeneratedMethod parentMethod, Type rootSourceType)
         {
             if (typeMappings.ContainsKey(targetItem.key))
             {
@@ -101,7 +102,7 @@ namespace Apimap.DotnetGenerator.Core
                         tm.MappingMethod = new GeneratedMethod()
                         {
                             Name = GenerateMappingMethodName(tm),
-                            Parameters = GetMappingParameters(tm),
+                            Parameters = GetMappingParameters(tm, rootSourceType),
                             ReturnType = tm.TargetProperty.PropertyType
                         };
                         tm.MappingMethod.AppendMethodBodyCode($"var target = new {tm.TargetProperty.PropertyType}();");
@@ -112,7 +113,7 @@ namespace Apimap.DotnetGenerator.Core
 
                 }
 
-                IterateOverChildren(targetItem, typeMappings);
+                IterateOverChildren(targetItem, typeMappings, rootSourceType);
             }
             else
             {
@@ -120,10 +121,18 @@ namespace Apimap.DotnetGenerator.Core
             }
         }
 
-        private List<Arg> GetMappingParameters(TypeMapping tm)
+        private List<Arg> GetMappingParameters(TypeMapping tm, Type rootSourceType)
         {
-            // TODO - need to do something aobut the case where the source of one of the mappings is the source root - there will be no property path
-            return tm.Mappings.Where(b => b.SourceProperty != null).Select(a => new Arg() {Name = a.SourceProperty.Name, Type = a.SourceProperty.PropertyType}).ToList();
+            var args = new List<Arg>();
+
+            args.AddRange(tm.Mappings.Where(b => b.SourceProperty != null).Select(a => new Arg() { Name = a.SourceProperty.Name, Type = a.SourceProperty.PropertyType }));
+
+            if (tm.Mappings.Any(b => b.SourceProperty == null))
+            {
+                args.Add(new Arg() {Name = "source", Type = rootSourceType});                
+            }
+
+            return args;
         }
 
         private string BuildPropertyPath(List<PropertyInfo> sourcePath)

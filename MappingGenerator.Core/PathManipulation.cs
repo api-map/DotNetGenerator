@@ -8,39 +8,57 @@ namespace Apimap.DotnetGenerator.Core
 {
     public class PathManipulation
     {
-        public static List<PropertyInfo> GetClrPropertyPathFromPath(Type type, List<SchemaItem> path, int index)
+        public static PropertyTraversalPath GetClrPropertyPathFromPath(Type type, List<SchemaItem> path, int index)
         {
-            return GetClrPropertyPathFromPathInternal(type, path, index, new List<PropertyInfo>());
+            return GetClrPropertyPathFromPathInternal(type, path, index, new PropertyTraversalPath() {Path = new List<PropertyTraversal>(), RootType = type});
         }
 
-        private static List<PropertyInfo> GetClrPropertyPathFromPathInternal(Type type, List<SchemaItem> path, int index, List<PropertyInfo> properties)
+        private static PropertyTraversalPath GetClrPropertyPathFromPathInternal(Type type, List<SchemaItem> path, int index, PropertyTraversalPath traversalPath)
         {
             Log("Working out path " + PathAsString(path));
 
             var item = path[index];
-            var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            Log("Looking for property named " + item.title);
-
-            var prop = props.FirstOrDefault(a => a.Name.Equals(item.title, StringComparison.InvariantCultureIgnoreCase));
-            if (prop != null)
+            var parent = path[index - 1];
+            if (parent.Occurrance.Max == null)
             {
-                properties.Add(prop);
+                traversalPath.Path.Add(new PropertyTraversal() {IsArray = true});
 
                 if (index == path.Count - 1)
                 {
-                    return properties;
+                    return traversalPath;
                 }
                 else
                 {
-                    return GetClrPropertyPathFromPathInternal(prop.PropertyType, path, index + 1, properties);
+                    // we're making some assumptiosn here...
+                    return GetClrPropertyPathFromPathInternal(type.GetGenericArguments().First(), path, index + 1, traversalPath);
                 }
             }
+            else
+            {
+                var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                Log("Looking for property named " + item.title);
 
-            Log("No Property Found");
-            return null; // TODO
+                var prop = props.FirstOrDefault(a => a.Name.Equals(item.title, StringComparison.InvariantCultureIgnoreCase));
+                if (prop != null)
+                {
+                    traversalPath.Path.Add(new PropertyTraversal() {Property = prop});
 
-            // TODO - special case 'choice'
+                    if (index == path.Count - 1)
+                    {
+                        return traversalPath;
+                    }
+                    else
+                    {
+                        return GetClrPropertyPathFromPathInternal(prop.PropertyType, path, index + 1, traversalPath);
+                    }
+                }
+            
+                throw new InvalidOperationException("traversal not found");
+
+            }
+
+            
         }
 
         private static string PathAsString(List<SchemaItem> path)

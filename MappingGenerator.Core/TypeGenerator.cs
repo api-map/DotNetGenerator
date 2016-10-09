@@ -31,7 +31,7 @@ namespace Apimap.DotnetGenerator.Core
             var rootname = GetDefaultRootItemNameFromFileName(jsonFileName);
             var typeNameGen = new CustomTypeNameGenerator(rootname);
             var schema = JsonSchema4.FromJson(jsonSchema);
-            var generator = new CSharpGenerator(schema, new CSharpGeneratorSettings() {Namespace = targetNamespace, ClassStyle = CSharpClassStyle.Poco, RequiredPropertiesMustBeDefined = false, TypeNameGenerator = typeNameGen });
+            var generator = new CSharpGenerator(schema, new CSharpGeneratorSettings() {Namespace = targetNamespace, ClassStyle = CSharpClassStyle.Poco, RequiredPropertiesMustBeDefined = false, TypeNameGenerator = typeNameGen, ArrayType = "List" });
 
             var result = new CodeGenerationResult {Code = generator.GenerateFile() };
 

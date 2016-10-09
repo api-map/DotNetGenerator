@@ -27,7 +27,7 @@ namespace Apimap.DotnetGenerator.Core
 
                 if (!existingTypeMappings.ContainsKey(itemMapping.TargetSchemaItem.key))
                 {
-                    List<PropertyInfo> targetPath = null;
+                    PropertyTraversalPath targetPath = null;
                     if (!itemMapping.TargetSchemaItem.IsRoot)
                     {
                         targetPath = PathManipulation.GetClrPropertyPathFromPath(rootTargetType, itemMapping.TargetSchemaItem.Path, 1);

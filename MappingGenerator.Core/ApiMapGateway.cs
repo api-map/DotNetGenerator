@@ -11,7 +11,7 @@ namespace Apimap.DotnetGenerator.Core
 {
     public class ApiMapGateway
     {
-        private const string BaseAddress = "https://black/Cartographer.Web/"; //"https://api-map.com/";
+        private const string BaseAddress = "https://api-map.com/";
         private const string JsonMimeType = "application/json";
 
         public async Task<Mapping> GetMapping(int id, NetworkCredential credential)

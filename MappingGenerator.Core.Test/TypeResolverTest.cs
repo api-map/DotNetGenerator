@@ -44,7 +44,7 @@ namespace Apimap.DotnetGenerator.Core.Test
             {
                 foreach (var schemaItemMapping in tm.Mappings)
                 {
-                    Write(string.Format("Item {0} of type {1} will be mapped from {2}", schemaItemMapping.TargetSchemaItem.title, tm.TargetProperty, schemaItemMapping.SourcePath));
+                    Write(string.Format("Item {0} of type {1} will be mapped from {2}", schemaItemMapping.TargetSchemaItem.title, tm.TargetProperty, schemaItemMapping.SourceProperty));
                 }
             }
 
@@ -53,6 +53,45 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             var tm2 = mappings[targetItem.children.First(a => a.title == "lastName").key];
             Assert.Equal(typeof(System.String), tm2.Mappings[0].SourceProperty.PropertyType);
+        }
+
+        [Fact]
+        public void CanResolveTypesForSourceAndTargetAToX()
+        {
+            var tg = new TypeGenerator();
+
+            var mapping = JsonConvert.DeserializeObject<Mapping>(File.ReadAllText(TestFiles.AToXMapping));
+
+            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema.Files.First().Content, "Source.json", "Mapping");
+            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema.Files.First().Content, "Target.json", "Mapping");
+
+            Write(source.Code);
+            Write(target.Code);
+
+            mapping.RebuildRelationships();
+            var mappings = new Dictionary<int, TypeMapping>();
+
+            var sourceItem = mapping.SourceInfo.Roots[0];
+            var targetItem = mapping.TargetInfo.Roots[0];
+
+            var resolver = new TypeResolver();
+            resolver.Resolve(mappings, source.RootType, target.RootType, sourceItem, targetItem, mapping);
+
+            Assert.Equal(7, mappings.Keys.Count);
+
+            var wTargetItemId = 33309;
+            var wTypeMapping = mappings[wTargetItemId];
+
+            Assert.Equal(1, wTypeMapping.Mappings.Count);
+            Assert.NotNull(wTypeMapping.Mappings[0].SourcePath);
+
+            foreach (var tm in mappings.Values)
+            {
+                foreach (var schemaItemMapping in tm.Mappings)
+                {
+                    Write(string.Format("Item {0} of type {1} will be mapped from {2}", schemaItemMapping.TargetSchemaItem.title, tm.TargetProperty, schemaItemMapping.SourceProperty));
+                }
+            }
         }
     }
 }
