@@ -43,7 +43,9 @@ namespace Apimap.DotnetGenerator.Core.Test
             var writer = new StringWriter(sb);
             generator.Generate(writer, mappings, source.RootType, target.RootType, mapping.TargetInfo.Roots[0], mapping);
 
-            Write(sb.ToString());
+            var result = sb.ToString();
+            Assert.True(result.IndexOf("target.FirstName = Source?.FirstName;") > -1);
+            Write(result);
         }
 
         [Fact]

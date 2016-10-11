@@ -9,7 +9,7 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
 {
     public class TypeMapping
     {
-        public PropertyInfo TargetProperty { get { return TargetPath != null && TargetPath.Any() ? TargetPath.Last() : null; } } 
+        public PropertyInfo TargetProperty { get { return TargetPath != null && TargetPath.Path != null && TargetPath.Path.Any() ? TargetPath.Path.Last().Property : null; } } // TODO - assume is always property?
 
         public PropertyTraversalPath TargetPath { get; set; }
 
@@ -18,14 +18,8 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
 
         public SchemaItem TargetItem
         {
-            get { return Mappings != null && Mappings.Any() ? Mappings.First().TargetSchemaItem : null; } // all of the target items for a particular TypeMapping shoudl be the same
+            get { return Mappings != null && Mappings.Any() ? Mappings.First().TargetSchemaItem : null; } // all of the target items for a particular TypeMapping should be the same
         }
-    }
-
-    public class Arg
-    {
-        public Type Type { get; set; }
-        public string Name { get; set; }
     }
 
     public class GeneratedMethod
@@ -35,7 +29,7 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
 
         public string Name { get; set; }
 
-        public List<Arg> Parameters { get; set; }
+        public List<PropertyTraversalPath> Parameters { get; set; }
         public Type ReturnType { get; set; }
 
         private List<string> codeLines = new List<string>();
@@ -75,7 +69,7 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
 
         public void Render(TextWriter output, string indentation)
         {
-            var parameters = string.Join(",", Parameters.Select(a => a.Type.FullName + " " + a.Name)); // TODO params need NAMES!
+            var parameters = string.Join(",", Parameters.Select(a => a.TypeName + " " + a.Name)); 
             output.WriteLine(indentation + $"public virtual {ReturnType.FullName} {Name}({parameters})");
             output.WriteLine(indentation + "{");
             if (!codeLines.Any())

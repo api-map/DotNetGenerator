@@ -22,7 +22,7 @@ namespace Apimap.DotnetGenerator.Core.Model
 
         public PropertyInfo SourceProperty
         {
-            get { return SourcePath != null && SourcePath.Path != null && SourcePath.Path.Any() ? SourcePath.Path.Last().Property : null; } 
+            get { return SourcePath?.Property; } 
         }
 
         [JsonIgnore]
@@ -48,6 +48,53 @@ namespace Apimap.DotnetGenerator.Core.Model
     {
         public Type RootType { get; set; }
         public List<PropertyTraversal> Path { get; set; }
+        public PropertyInfo Property => Path != null && Path.Any() ? Path.Last().Property : null;
+
+        public List<PropertyTraversal> SubPath(PropertyTraversalPath super)
+        {
+            if (super.Path == null || super.Path.Count == 0)
+            {
+                return Path;
+            }
+
+            return Path.Skip(super.Path.Count).ToList();
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (Property == null)
+                {
+                    return "Source";
+                }
+                return Property.Name;
+            }
+        }
+
+        public string TypeName
+        {
+            get
+            {
+                if (Property == null)
+                {
+                    return RootType.FullName;
+                }
+                return Property.PropertyType.FullName;
+            }
+        }
+
+        public Type Type
+        {
+            get
+            {
+                if (Property == null)
+                {
+                    return RootType;
+                }
+                return Property.PropertyType;
+            }
+        }
     }
 
     public class PropertyTraversal

@@ -17,7 +17,7 @@ namespace Apimap.DotnetGenerator.Core
                 {
                     if (itemMapping.SourceSchemaItem.IsRoot)
                     {
-                        // TODO - not sure what to do here. There won't be any property path if the item is the root
+                        itemMapping.SourcePath = new PropertyTraversalPath() {RootType = rootSourceType};
                     }
                     else
                     {
@@ -41,7 +41,7 @@ namespace Apimap.DotnetGenerator.Core
             {
                 var rootTm = new TypeMapping()
                 {
-                    Mappings = new List<SchemaItemMapping>() {new SchemaItemMapping() {SourceSchemaItem = rootSourceSchemaItem, SourceSchemaItemId = rootSourceSchemaItem.key, TargetSchemaItem = rootTargetSchemaItem, TargetSchemaItemId = rootTargetSchemaItem.key, Action = new SchemaItemMappingAction() {Id = MappingAction.Transform } } }
+                    Mappings = new List<SchemaItemMapping>() {new SchemaItemMapping() {SourceSchemaItem = rootSourceSchemaItem, SourceSchemaItemId = rootSourceSchemaItem.key, SourcePath = new PropertyTraversalPath() {RootType = rootSourceType}, TargetSchemaItem = rootTargetSchemaItem, TargetSchemaItemId = rootTargetSchemaItem.key, Action = new SchemaItemMappingAction() {Id = MappingAction.Transform } } }
                 };
                 existingTypeMappings.Add(rootTargetSchemaItem.key, rootTm);
             }

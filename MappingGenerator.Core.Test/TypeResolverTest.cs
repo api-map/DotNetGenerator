@@ -50,9 +50,11 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             var tm1 = mappings[targetItem.children.First(a => a.title == "firstName").key];
             Assert.Equal(typeof(System.String), tm1.Mappings[0].SourceProperty.PropertyType);
+            Assert.NotNull(tm1.Mappings[0].SourcePath);
 
             var tm2 = mappings[targetItem.children.First(a => a.title == "lastName").key];
             Assert.Equal(typeof(System.String), tm2.Mappings[0].SourceProperty.PropertyType);
+            Assert.NotNull(tm2.Mappings[0].SourcePath);
         }
 
         [Fact]
@@ -90,6 +92,7 @@ namespace Apimap.DotnetGenerator.Core.Test
                 foreach (var schemaItemMapping in tm.Mappings)
                 {
                     Write(string.Format("Item {0} of type {1} will be mapped from {2}", schemaItemMapping.TargetSchemaItem.title, tm.TargetProperty, schemaItemMapping.SourceProperty));
+                    Assert.NotNull(schemaItemMapping.SourcePath);
                 }
             }
         }
