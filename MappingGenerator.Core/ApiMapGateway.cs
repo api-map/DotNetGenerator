@@ -34,6 +34,8 @@ namespace Apimap.DotnetGenerator.Core
                     return m;
                 }
 
+                // TODO - throw exception ?
+
                 return null;
             }
 
@@ -64,6 +66,9 @@ namespace Apimap.DotnetGenerator.Core
                     var token = jobj.GetValue("access_token").Value<string>();
                     return token;
                 }
+
+                // TODO - throw security exception?
+
                 return null;
             }
         }
