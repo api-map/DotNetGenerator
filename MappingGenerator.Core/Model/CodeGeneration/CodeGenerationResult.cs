@@ -24,7 +24,7 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
                     return null;
                 }
 
-                return Assembly.DefinedTypes.FirstOrDefault(a => a.Name == RootTypeName);
+                return Assembly.DefinedTypes.FirstOrDefault(a => a.Name.Equals(RootTypeName, StringComparison.InvariantCultureIgnoreCase));
             }
         }
     }

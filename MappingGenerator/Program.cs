@@ -9,7 +9,6 @@ using Apimap.DotnetGenerator.Core.AzureFunction;
 using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Mono.Options;
-using Newtonsoft.Json;
 
 namespace Apimap.DotnetGenerator
 {

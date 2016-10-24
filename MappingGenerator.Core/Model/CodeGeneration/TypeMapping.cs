@@ -69,7 +69,11 @@ namespace Apimap.DotnetGenerator.Core.Model.CodeGeneration
 
         public void Render(TextWriter output, string indentation)
         {
-            var parameters = string.Join(",", Parameters.Select(a => a.TypeName + " " + a.Name)); 
+            string parameters = null;
+            if (Parameters != null && Parameters.Any())
+            {
+                parameters = string.Join(",", Parameters.Select(a => a.TypeName + " " + a.Name));
+            }
             output.WriteLine(indentation + $"public virtual {ReturnType.FullName} {Name}({parameters})");
             output.WriteLine(indentation + "{");
             if (!codeLines.Any())

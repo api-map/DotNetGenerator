@@ -24,7 +24,7 @@ namespace Apimap.DotnetGenerator.Core
 
             tm.MappingMethod.AppendMethodBodyCode($"var target = new {rootTargetType}();");
 
-            IterateOverChildren(rootTargetItem, typeMappings, rootSourceType);
+            IterateOverChildren(rootTargetItem, typeMappings, rootSourceType, tm.MappingMethod);
 
             WriteClassBeginning(tm, output);
 
@@ -42,7 +42,7 @@ namespace Apimap.DotnetGenerator.Core
                     {
                         if (!CanBeDirectAssignment(typeMappingsValue))
                         {
-                            throw new InvalidOperationException("Unless the method is direct assignment there should be a method body. ");
+                            throw new InvalidOperationException($"Unless the method is direct assignment there should be a method body. No body found for {typeMappingsValue.TargetItem.title}");
                         }
                     }
                 }
@@ -64,12 +64,11 @@ namespace Apimap.DotnetGenerator.Core
             output.WriteLine("}");
         }
 
-        private void IterateOverChildren(SchemaItem item, Dictionary<int, TypeMapping> typeMappings, Type rootSourceType)
+        private void IterateOverChildren(SchemaItem item, Dictionary<int, TypeMapping> typeMappings, Type rootSourceType, GeneratedMethod parentMethod)
         {
             foreach (var child in item.children)
             {
-                var tm = typeMappings[item.key];
-                GenerateMappingForItem(typeMappings, child, tm.MappingMethod, rootSourceType);
+                GenerateMappingForItem(typeMappings, child, parentMethod, rootSourceType);
             }
         }
 
@@ -108,16 +107,16 @@ namespace Apimap.DotnetGenerator.Core
                         tm.MappingMethod.AppendMethodBodyCode($"var target = new {tm.TargetProperty.PropertyType}();");
                         var parameters = string.Join(", ", tm.Mappings.Select(a => BuildPropertyPath(a.SourcePath, parentMethod.Parameters)));
                         parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {tm.MappingMethod.Name}({parameters});");
-                        // TODO - generate method body here?
                     }
 
                 }
 
-                IterateOverChildren(targetItem, typeMappings, rootSourceType);
+                IterateOverChildren(targetItem, typeMappings, rootSourceType, tm.MappingMethod);
             }
             else
             {
                 // a child might be mapped but not the parent - TODO
+                IterateOverChildren(targetItem, typeMappings, rootSourceType, parentMethod);
             }
         }
 
@@ -174,7 +173,7 @@ namespace Apimap.DotnetGenerator.Core
                 return false;
             }
             var source = tm.Mappings.FirstOrDefault(a => a.SourcePath != null);
-            return source != null && tm.TargetPath.Type.IsAssignableFrom(source.SourcePath.Type);
+            return source != null && (source.SourcePath.Path == null || !source.SourcePath.Path.Any(a => a.IsArray)) && tm.TargetPath.Type.IsAssignableFrom(source.SourcePath.Type);
         }
 
         private bool IsSimpleDefault(TypeMapping tm)

@@ -93,9 +93,13 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <Content Include="Schemas\a-to-x-diagram.png" />
+    <Content Include="Schemas\a-to-x-variant.png" />
     <Content Include="Schemas\a-to-x.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Schemas\a-to-x-variant.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\nuget-project.json" />
     <None Include="Schemas\person-basic.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

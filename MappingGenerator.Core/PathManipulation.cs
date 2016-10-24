@@ -42,23 +42,37 @@ namespace Apimap.DotnetGenerator.Core
                 var prop = props.FirstOrDefault(a => a.Name.Equals(item.title, StringComparison.InvariantCultureIgnoreCase));
                 if (prop != null)
                 {
-                    traversalPath.Path.Add(new PropertyTraversal() {Property = prop});
-
-                    if (index == path.Count - 1)
-                    {
-                        return traversalPath;
-                    }
-                    else
-                    {
-                        return GetClrPropertyPathFromPathInternal(prop.PropertyType, path, index + 1, traversalPath);
-                    }
+                    return AddTraversal(path, index, traversalPath, prop);
                 }
-            
+
+                // if there are clashes NJsonSchema adds a '1' etc to the end of the type name
+                // TODO - consider searching for more numbers?
+                prop = props.FirstOrDefault(a => a.Name.Equals(item.title + "1", StringComparison.InvariantCultureIgnoreCase));
+                if (prop != null)
+                {
+                    return AddTraversal(path, index, traversalPath, prop);
+                }
+
                 throw new InvalidOperationException("traversal not found");
 
             }
 
             
+        }
+
+        private static PropertyTraversalPath AddTraversal(List<SchemaItem> path, int index, PropertyTraversalPath traversalPath,
+            PropertyInfo prop)
+        {
+            traversalPath.Path.Add(new PropertyTraversal() {Property = prop});
+
+            if (index == path.Count - 1)
+            {
+                return traversalPath;
+            }
+            else
+            {
+                return GetClrPropertyPathFromPathInternal(prop.PropertyType, path, index + 1, traversalPath);
+            }
         }
 
         private static string PathAsString(List<SchemaItem> path)

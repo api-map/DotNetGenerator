@@ -22,6 +22,8 @@ namespace Apimap.DotnetGenerator.Core.Test
             internal const string PersonBasic = "Schemas\\person-basic.json";
             internal const string PersonMapping = "Schemas\\person_to_person-basic.json";
             internal const string AToXMapping = "Schemas\\a-to-x.json";
+            internal const string AToXVariantMapping = "Schemas\\a-to-x-variant.json";
+
 
         }
     }

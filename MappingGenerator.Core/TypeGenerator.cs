@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -20,6 +21,26 @@ namespace Apimap.DotnetGenerator.Core
     {
         private const string VersionInfo =
             "\n[assembly: AssemblyVersion(\"1.0.0.0\")]\n[assembly: AssemblyFileVersion(\"1.0.0.0\")]\n";
+
+        public CodeGenerationResult Generate(PhysicalSchema schema, string targetNamespace)
+        {
+            if (schema == null)
+            {
+                throw new ArgumentNullException(nameof(schema));
+            }
+
+            if (string.IsNullOrEmpty(targetNamespace))
+            {
+                throw new ArgumentException(nameof(targetNamespace));
+            }
+
+            if (schema.Files == null || schema.Files.Count < 1)
+            {
+                throw new ArgumentException("json schema file was not provided", nameof(schema));
+            }
+
+            return Generate(schema.Files[0].Content, schema.Files[0].FileName, targetNamespace);
+        }
 
         public CodeGenerationResult Generate(string jsonSchema, string jsonFileName, string targetNamespace)
         {
