@@ -98,17 +98,23 @@ namespace Apimap.DotnetGenerator.Core
                     }
                     else
                     {
-                        tm.MappingMethod = new GeneratedMethod()
+                        if (tm.TargetPath.IsArray && tm.Mappings.Count == 1 && tm.Mappings[0].SourcePath.IsArray)
                         {
-                            Name = GenerateMappingMethodName(tm),
-                            Parameters = GetMappingParameters(tm),
-                            ReturnType = tm.TargetProperty.PropertyType
-                        };
-                        tm.MappingMethod.AppendMethodBodyCode($"var target = new {tm.TargetProperty.PropertyType}();");
-                        var parameters = string.Join(", ", tm.Mappings.Select(a => BuildPropertyPath(a.SourcePath, parentMethod.Parameters)));
-                        parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {tm.MappingMethod.Name}({parameters});");
+                            // array to array
+                        }
+                        else
+                        {
+                            tm.MappingMethod = new GeneratedMethod()
+                            {
+                                Name = GenerateMappingMethodName(tm),
+                                Parameters = GetMappingParameters(tm),
+                                ReturnType = tm.TargetProperty.PropertyType
+                            };
+                            tm.MappingMethod.AppendMethodBodyCode($"var target = new {tm.TargetProperty.PropertyType}();");
+                            var parameters = string.Join(", ", tm.Mappings.Select(a => BuildPropertyPath(a.SourcePath, parentMethod.Parameters)));
+                            parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {tm.MappingMethod.Name}({parameters});");
+                        }
                     }
-
                 }
 
                 IterateOverChildren(targetItem, typeMappings, rootSourceType, tm.MappingMethod);
@@ -173,7 +179,7 @@ namespace Apimap.DotnetGenerator.Core
                 return false;
             }
             var source = tm.Mappings.FirstOrDefault(a => a.SourcePath != null);
-            return source != null && (source.SourcePath.Path == null || !source.SourcePath.Path.Any(a => a.IsArray)) && tm.TargetPath.Type.IsAssignableFrom(source.SourcePath.Type);
+            return source != null && (source.SourcePath.Path == null || !source.SourcePath.IsArray) && tm.TargetPath.Type.IsAssignableFrom(source.SourcePath.Type);
         }
 
         private bool IsSimpleDefault(TypeMapping tm)

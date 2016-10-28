@@ -22,8 +22,6 @@ namespace Apimap.DotnetGenerator.Core
             var parent = path[index - 1];
             if (parent.Occurrance.Max == null)
             {
-                traversalPath.Path.Add(new PropertyTraversal() {IsArray = true});
-
                 if (index == path.Count - 1)
                 {
                     return traversalPath;

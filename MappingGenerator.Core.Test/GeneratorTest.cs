@@ -44,7 +44,7 @@ namespace Apimap.DotnetGenerator.Core.Test
             generator.Generate(writer, mappings, source.RootType, target.RootType, mapping.TargetInfo.Roots[0], mapping);
 
             var result = sb.ToString();
-            Assert.True(result.IndexOf("target.FirstName = Source?.FirstName;") > -1);
+            Assert.True(result.Contains("target.FirstName = Source?.FirstName;"));
             Write(result);
         }
 
@@ -105,7 +105,11 @@ namespace Apimap.DotnetGenerator.Core.Test
             var writer = new StringWriter(sb);
             generator.Generate(writer, mappings, source.RootType, target.RootType, mapping.TargetInfo.Roots[0], mapping);
 
-            Write(sb.ToString());
+            var result = sb.ToString();
+
+            // TODO some array mapping assertions
+            
+            Write(result);
         }
 
     }

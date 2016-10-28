@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -66,7 +67,7 @@ namespace Apimap.DotnetGenerator.Core.Model
             {
                 if (Property == null)
                 {
-                    return "Source";
+                    return "Source"; // what about when it is to the target?
                 }
                 return Property.Name;
             }
@@ -95,11 +96,37 @@ namespace Apimap.DotnetGenerator.Core.Model
                 return Property.PropertyType;
             }
         }
+
+        public bool IsArray
+        {
+            get
+            {
+                if (Path == null || Path.Count == 0)
+                {
+                    return false;
+                }
+
+                return Path.Last().IsArray;
+            }
+        }
     }
 
     public class PropertyTraversal
     {
         public PropertyInfo Property { get; set; }
-        public bool IsArray { get; set; }
+
+        public bool IsArray
+        {
+            get
+            {
+                if (Property == null)
+                {
+                    return false;
+                }
+
+                return Property.PropertyType.IsArray ||
+                       (Property.PropertyType.IsGenericType && typeof(IList).IsAssignableFrom(Property.PropertyType));
+            }
+        }
     }
 }
