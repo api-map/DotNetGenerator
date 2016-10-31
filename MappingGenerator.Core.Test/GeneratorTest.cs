@@ -107,7 +107,8 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             var result = sb.ToString();
 
-            // TODO some array mapping assertions
+            Assert.True(result.Contains("target.Z = MapNoTitleToZ(Source?.B);"), "Array was correctly passed as a parameter");
+            Assert.True(result.Contains("public virtual Target.Z MapNoTitleToZ(IEnumerable<Source.Anonymous> B)"), "array was correctly added as method argument");
             
             Write(result);
         }

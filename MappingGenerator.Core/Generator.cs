@@ -148,6 +148,11 @@ namespace Apimap.DotnetGenerator.Core
                 return parameter.Name;
             }
 
+            if (subPath.Last().IsArray)
+            {
+                return parameter.Name + "?." + string.Join("?.", subPath.Select(a => a.Property.Name));
+            }
+
             if (subPath.Any(a => a.IsArray))
             {
                 // TODO
