@@ -81,7 +81,24 @@ namespace Apimap.DotnetGenerator.Core.Model
                 {
                     return RootType.FullName;
                 }
-                return Property.PropertyType.FullName;
+                if (IsArray)
+                {
+                    Type enumType = null;
+                    // IEnumerable<T> will be safest?
+                    if (Property.PropertyType.IsGenericType)
+                    {
+                        enumType = Property.PropertyType.GenericTypeArguments.First();
+                    }
+                    if (Property.PropertyType.IsArray)
+                    {
+                        enumType = Property.PropertyType.GetElementType();
+                    }
+                    return $"IEnumerable<{enumType.FullName}>";
+                }
+                else
+                {
+                    return Property.PropertyType.FullName;
+                }
             }
         }
 

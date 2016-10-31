@@ -121,7 +121,6 @@ namespace Apimap.DotnetGenerator.Core
             }
             else
             {
-                // a child might be mapped but not the parent - TODO
                 IterateOverChildren(targetItem, typeMappings, rootSourceType, parentMethod);
             }
         }
