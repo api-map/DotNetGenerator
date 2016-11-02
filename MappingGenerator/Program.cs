@@ -36,9 +36,14 @@ namespace Apimap.DotnetGenerator
                 return -1;
             }
 
-            if (!Directory.Exists(opt.OutputDirectory))
+            var errors = opt.Validate();
+            if (errors.Any())
             {
-                Console.WriteLine($"Error: the output directory you specified {opt.OutputDirectory} does not exist.");
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error);
+                }
+
                 return -1;
             }
 
@@ -47,9 +52,17 @@ namespace Apimap.DotnetGenerator
             var gateway = new ApiMapGateway();
             try
             {
-                var mappingTask = gateway.GetMapping(opt.MappingId, new NetworkCredential(opt.UserName, opt.Password)); // why can't we 'await' here
+                var mappingTask = gateway.GetMapping(opt.MappingId.Value, new NetworkCredential(opt.UserName, opt.Password)); // why can't we 'await' here
                 mappingTask.Wait();
                 mapping = mappingTask.Result;
+            }
+            catch (AggregateException agEx)
+            {
+                foreach (var inner in agEx.InnerExceptions)
+                {
+                    Console.WriteLine($"Error: Unable to retrieve mapping - {inner.Message}");
+                }
+                return -1;
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace Apimap.DotnetGenerator.Core
 {
     public class ApiMapGateway
     {
-        private const string BaseAddress = "https://api-map.com/";
+        private const string BaseAddress = "https://api-map.com/"; 
         private const string JsonMimeType = "application/json";
 
         public async Task<Mapping> GetMapping(int id, NetworkCredential credential)
@@ -19,7 +19,7 @@ namespace Apimap.DotnetGenerator.Core
             var token = await GetToken(credential);
             if (token == null)
             {
-                throw new SecurityException();
+                throw new SecurityException("Unable to authenticate you using the credentials you provided.");
             }
 
             using (var client = CreateClient())
