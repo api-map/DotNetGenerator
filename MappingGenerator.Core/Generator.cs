@@ -93,7 +93,7 @@ namespace Apimap.DotnetGenerator.Core
                 {
                     if (CanBeDirectAssignment(tm))
                     {
-                        var propPath = BuildPropertyPath(tm.Mappings.First().SourcePath, parentMethod.Parameters); // first is valid here, because to be a valid direct assignment (like highlander) there can be only one
+                        var propPath = BuildPropertyPath(tm.Mappings.First().SourcePath, parentMethod.Parameters, tm.TargetPath.IsArray); // first is valid here, because to be a valid direct assignment (like highlander) there can be only one
                         parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {propPath};");
                     }
                     else
@@ -111,8 +111,16 @@ namespace Apimap.DotnetGenerator.Core
                                 ReturnType = tm.TargetProperty.PropertyType
                             };
                             tm.MappingMethod.AppendMethodBodyCode($"var target = new {tm.TargetProperty.PropertyType}();");
-                            var parameters = string.Join(", ", tm.Mappings.Select(a => BuildPropertyPath(a.SourcePath, parentMethod.Parameters)));
-                            parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {tm.MappingMethod.Name}({parameters});");
+                            var parameters = new List<string>();
+                            foreach (var m in tm.Mappings)
+                            {
+                                var parameter = BuildPropertyPath(m.SourcePath, parentMethod.Parameters, m.SourcePath.IsArray);
+                                if (!parameters.Contains(parameter))
+                                {
+                                    parameters.Add(parameter);
+                                }
+                            }
+                            parentMethod.AppendMethodBodyCode($"target.{tm.TargetProperty.Name} = {tm.MappingMethod.Name}({string.Join(", ", parameters)});");
                         }
                     }
                 }
@@ -130,7 +138,7 @@ namespace Apimap.DotnetGenerator.Core
             return tm.Mappings.Select(a => a.SourcePath).ToList();
         }
 
-        private string BuildPropertyPath(PropertyTraversalPath sourcePath, List<PropertyTraversalPath> parameters)
+        private string BuildPropertyPath(PropertyTraversalPath sourcePath, List<PropertyTraversalPath> parameters, bool targetIsArray)
         {
             if (sourcePath == null)
             {
@@ -148,18 +156,32 @@ namespace Apimap.DotnetGenerator.Core
                 return parameter.Name;
             }
 
-            if (subPath.Last().IsArray)
+            var propPath = parameter.Name;
+            if (parameter.IsArray && !targetIsArray)
             {
-                return parameter.Name + "?." + string.Join("?.", subPath.Select(a => a.Property.Name));
+                propPath += ".First()";
+            }
+            foreach (var item in subPath)
+            {
+                propPath += "?." + AppendPropertyPath(item, targetIsArray);
             }
 
-            if (subPath.Any(a => a.IsArray))
+            return propPath;
+        }
+
+        private string AppendPropertyPath(PropertyTraversal item, bool targetIsArray)
+        {
+            if (!targetIsArray && item.IsArray)
             {
-                // TODO
-                return null;
+                return item.Property.Name + ".First()";
             }
 
-            return  parameter.Name + "?." + string.Join("?.", subPath.Select(a => a.Property.Name));
+            if (targetIsArray == item.IsArray)
+            {
+                return item.Property.Name;
+            }
+
+            return null; // TODO - handle arrays targets
         }
 
         private PropertyTraversalPath GetParameterThatIsSubPath(PropertyTraversalPath sourcePath, List<PropertyTraversalPath> parameters)
