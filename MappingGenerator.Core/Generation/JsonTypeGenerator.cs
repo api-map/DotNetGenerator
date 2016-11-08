@@ -60,44 +60,15 @@ namespace Apimap.DotnetGenerator.Core.Generation
 
             AddAssemblyVersionAttributes(result, targetNamespace);
 
-            var st = CSharpSyntaxTree.ParseText(result.Code);
-
-            var fileName = rootname;
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            CSharpCompilation compilation = CSharpCompilation.Create(
-               fileName,
-               syntaxTrees: new[] { st },
-               references: CreateMetadataReferences(),
-               options: options);
-
-            result.AssemblyBytes = new MemoryStream();
-            EmitResult emitted = compilation.Emit(result.AssemblyBytes);
-
-            if (!emitted.Success)
-            {
-                result.Errors = new List<string>();
-
-                IEnumerable<Diagnostic> failures = emitted.Diagnostics.Where(diagnostic =>
-                    diagnostic.IsWarningAsError ||
-                    diagnostic.Severity == DiagnosticSeverity.Error);
-
-                foreach (Diagnostic diagnostic in failures)
-                {
-                    result.Errors.Add(string.Format("{0}: {1}", diagnostic.Id, diagnostic.GetMessage()));
-                }
-            }
-            else
-            {
-                result.AssemblyBytes.Seek(0, SeekOrigin.Begin);
-                result.Assembly = Assembly.Load(result.AssemblyBytes.ToArray());
-                result.AssemblyBytes.Seek(0, SeekOrigin.Begin);
-            }
+            // this calling back to the TypeGenerator sure gives these a 'bas type/sub-type' kind of vibe.
+            TypeGenerator.BuildGeneratedCode(result, rootname, CreateMetadataReferences());
 
             result.RootTypeName = typeNameGen.AssignedRootTypeName;
-            result.AssemblyName = fileName + ".dll";
 
             return result;
         }
+
+
 
         private void AddAssemblyVersionAttributes(CodeGenerationResult result, string targetNamespace)
         {
