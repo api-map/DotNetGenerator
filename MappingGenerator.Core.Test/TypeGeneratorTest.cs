@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using Apimap.DotnetGenerator.Core.Generation;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -14,7 +15,7 @@ namespace Apimap.DotnetGenerator.Core.Test
         [Fact]
         public void TypesCanBeGeneratedFromPersonSchema()
         {
-            var tg = new TypeGenerator();
+            var tg = new JsonTypeGenerator();
             var result = tg.Generate(File.ReadAllText(TestFiles.Person), TestFiles.Person, "Foo.Bar");
             Assert.Null(result.Errors);
             Assert.NotNull(result.Assembly);

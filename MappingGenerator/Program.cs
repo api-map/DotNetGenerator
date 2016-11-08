@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using Apimap.DotnetGenerator.Core;
 using Apimap.DotnetGenerator.Core.AzureFunction;
+using Apimap.DotnetGenerator.Core.Generation;
 using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Mono.Options;
@@ -84,8 +85,8 @@ namespace Apimap.DotnetGenerator
         {
             var tg = new TypeGenerator();
 
-            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema.Files.First().Content, mapping.SourceInfo.PhysicalSchema.Files.First().FileName, "SourceNs");
-            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema.Files.First().Content, mapping.TargetInfo.PhysicalSchema.Files.First().FileName, "TargetNs");
+            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema, "SourceNs");
+            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema, "TargetNs");
             mapping.RebuildRelationships();
             var mappings = new Dictionary<int, TypeMapping>();
 

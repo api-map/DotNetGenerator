@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Microsoft.CodeAnalysis;
@@ -15,12 +17,12 @@ using NJsonSchema;
 using NJsonSchema.CodeGeneration;
 using NJsonSchema.CodeGeneration.CSharp;
 
-namespace Apimap.DotnetGenerator.Core
+namespace Apimap.DotnetGenerator.Core.Generation
 {
-    public class TypeGenerator
+    public class JsonTypeGenerator : ITypeGenerator
     {
         private const string VersionInfo =
-            "\n[assembly: AssemblyVersion(\"1.0.0.0\")]\n[assembly: AssemblyFileVersion(\"1.0.0.0\")]\n";
+    "\n[assembly: AssemblyVersion(\"1.0.0.0\")]\n[assembly: AssemblyFileVersion(\"1.0.0.0\")]\n";
 
         public CodeGenerationResult Generate(PhysicalSchema schema, string targetNamespace)
         {
@@ -52,9 +54,9 @@ namespace Apimap.DotnetGenerator.Core
             var rootname = GetDefaultRootItemNameFromFileName(jsonFileName);
             var typeNameGen = new CustomTypeNameGenerator(rootname);
             var schema = JsonSchema4.FromJson(jsonSchema);
-            var generator = new CSharpGenerator(schema, new CSharpGeneratorSettings() {Namespace = targetNamespace, ClassStyle = CSharpClassStyle.Poco, RequiredPropertiesMustBeDefined = false, TypeNameGenerator = typeNameGen, ArrayType = "List" });
+            var generator = new CSharpGenerator(schema, new CSharpGeneratorSettings() { Namespace = targetNamespace, ClassStyle = CSharpClassStyle.Poco, RequiredPropertiesMustBeDefined = false, TypeNameGenerator = typeNameGen, ArrayType = "List" });
 
-            var result = new CodeGenerationResult {Code = generator.GenerateFile() };
+            var result = new CodeGenerationResult { Code = generator.GenerateFile() };
 
             AddAssemblyVersionAttributes(result, targetNamespace);
 
@@ -125,64 +127,64 @@ namespace Apimap.DotnetGenerator.Core
             MetadataReference[] references = {
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(JsonSerializer).Assembly.Location), 
+                MetadataReference.CreateFromFile(typeof(JsonSerializer).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(GeneratedCodeAttribute).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(RequiredAttribute).Assembly.Location), // only reason this is needed is because of 'Required' attributes which we probably won't use anyway
             };
             return references;
         }
-    }
 
-    internal class CustomTypeNameGenerator : ITypeNameGenerator
-    {
-        private string defaultRootName = null;
-        private string assignedRootTypeName = null; 
-
-        public CustomTypeNameGenerator(string defaultRootName)
+        internal class CustomTypeNameGenerator : ITypeNameGenerator
         {
-            this.defaultRootName = defaultRootName;
-        }
+            private string defaultRootName = null;
+            private string assignedRootTypeName = null;
 
-        public string AssignedRootTypeName
-        {
-            get { return assignedRootTypeName; }
-        }
-
-        public string Generate(JsonSchema4 schema)
-        {
-            var result = GenerateInternal(schema);
-
-            if (schema.ParentSchema == null)
+            public CustomTypeNameGenerator(string defaultRootName)
             {
-                assignedRootTypeName = result;
+                this.defaultRootName = defaultRootName;
             }
 
-            return result;
-        }
-
-        private string GenerateInternal(JsonSchema4 schema)
-        {
-            if (!string.IsNullOrEmpty(schema.TypeNameRaw))
+            public string AssignedRootTypeName
             {
-                return ConversionUtilities.ConvertToUpperCamelCase(schema.TypeNameRaw, true);
+                get { return assignedRootTypeName; }
             }
 
-            if (schema.ExtensionData != null && schema.ExtensionData.Any() && schema.ExtensionData.ContainsKey("typeName"))
+            public string Generate(JsonSchema4 schema)
             {
-                return ConversionUtilities.ConvertToUpperCamelCase(schema.ExtensionData["typeName"].ToString(), true);
+                var result = GenerateInternal(schema);
+
+                if (schema.ParentSchema == null)
+                {
+                    assignedRootTypeName = result;
+                }
+
+                return result;
             }
 
-            if (!string.IsNullOrEmpty(schema.Title))
+            private string GenerateInternal(JsonSchema4 schema)
             {
-                return ConversionUtilities.ConvertToUpperCamelCase(schema.Title, true);
-            }
+                if (!string.IsNullOrEmpty(schema.TypeNameRaw))
+                {
+                    return ConversionUtilities.ConvertToUpperCamelCase(schema.TypeNameRaw, true);
+                }
 
-            if (schema.ParentSchema == null)
-            {
-                return defaultRootName;
-            }
+                if (schema.ExtensionData != null && schema.ExtensionData.Any() && schema.ExtensionData.ContainsKey("typeName"))
+                {
+                    return ConversionUtilities.ConvertToUpperCamelCase(schema.ExtensionData["typeName"].ToString(), true);
+                }
 
-            return null;
+                if (!string.IsNullOrEmpty(schema.Title))
+                {
+                    return ConversionUtilities.ConvertToUpperCamelCase(schema.Title, true);
+                }
+
+                if (schema.ParentSchema == null)
+                {
+                    return defaultRootName;
+                }
+
+                return null;
+            }
         }
     }
 }

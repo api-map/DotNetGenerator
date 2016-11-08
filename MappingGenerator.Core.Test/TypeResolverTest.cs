@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Apimap.DotnetGenerator.Core.Generation;
 using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Newtonsoft.Json;
@@ -19,7 +20,7 @@ namespace Apimap.DotnetGenerator.Core.Test
         [Fact]
         public void CanResolveTypesForSourceAndTarget()
         {
-            var tg = new TypeGenerator();
+            var tg = new JsonTypeGenerator();
             var source = tg.Generate(File.ReadAllText(TestFiles.Person), TestFiles.Person, "Foo.Bar");
             var target = tg.Generate(File.ReadAllText(TestFiles.PersonBasic), TestFiles.PersonBasic, "Baz");
 
@@ -64,8 +65,8 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             var mapping = JsonConvert.DeserializeObject<Mapping>(File.ReadAllText(TestFiles.AToXMapping));
 
-            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema.Files.First().Content, "Source.json", "Mapping");
-            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema.Files.First().Content, "Target.json", "Mapping");
+            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema, "Mapping");
+            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema, "Mapping");
 
             Write(source.Code);
             Write(target.Code);

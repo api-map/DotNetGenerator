@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Apimap.DotnetGenerator.Core.AzureFunction;
+using Apimap.DotnetGenerator.Core.Generation;
 using Apimap.DotnetGenerator.Core.Model;
 using Apimap.DotnetGenerator.Core.Model.CodeGeneration;
 using Newtonsoft.Json;
@@ -20,8 +21,8 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             var mapping = JsonConvert.DeserializeObject<Mapping>(File.ReadAllText(TestBase.TestFiles.AToXMapping));
 
-            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema.Files.First().Content, "Source.json", "SourceNs");
-            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema.Files.First().Content, "Target.json", "TargetNs");
+            var source = tg.Generate(mapping.SourceInfo.PhysicalSchema, "SourceNs");
+            var target = tg.Generate(mapping.TargetInfo.PhysicalSchema, "TargetNs");
 
             output.WriteLine(source.Code);
 
