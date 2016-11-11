@@ -27,9 +27,20 @@ namespace Apimap.DotnetGenerator.Core.Generation
 
             var result = new CodeGenerationResult() {Code = sb.ToString()};
 
-            TypeGenerator.BuildGeneratedCode(result, schema.Files[0].FileName /* TODO */, new MetadataReference[0]);
+            TypeGenerator.BuildGeneratedCode(result, schema.Files[0].FileName /* TODO */, CreateMetadataReferences());
             result.RootTypeName = code.RootElementName;
             return result;
+        }
+
+        private static MetadataReference[] CreateMetadataReferences()
+        {
+            MetadataReference[] references = {
+                MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(GeneratedCodeAttribute).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(System.Xml.XmlElement).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(XmlSerializer).Assembly.Location),
+            };
+            return references;
         }
 
         internal static CodeNamespaceResult CreateCodeNamespace(PhysicalSchema schema, string targetNamespace)

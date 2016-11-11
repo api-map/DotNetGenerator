@@ -42,7 +42,7 @@ namespace Apimap.DotnetGenerator.Core
             else
             {
                 var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                Log("Looking for property named " + item.title);
+                Log("Looking for property named " + item.title); // "choose one of" == choice. Need to 
 
                 var prop = props.FirstOrDefault(a => a.Name.Equals(item.title, StringComparison.InvariantCultureIgnoreCase));
                 if (prop != null)
