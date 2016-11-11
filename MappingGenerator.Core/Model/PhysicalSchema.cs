@@ -10,7 +10,20 @@ namespace Apimap.DotnetGenerator.Core.Model
 
         public DefinitionType DefinitionType
         {
-            get { return Files != null && Files.Any() ? DefinitionType.Json : DefinitionType.Unknown; }
+            get
+            {
+                if (Files == null || !Files.Any())
+                {
+                    return DefinitionType.Unknown;
+                }
+
+                if (Files.First().FileName.EndsWith(".xsd") || Files.First().FileName.EndsWith(".xml"))
+                {
+                    return DefinitionType.Xsd;
+                }
+
+                return DefinitionType.Json;
+            }
         }
     }
 

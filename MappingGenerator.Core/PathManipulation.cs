@@ -28,8 +28,15 @@ namespace Apimap.DotnetGenerator.Core
                 }
                 else
                 {
-                    // we're making some assumptiosn here...
-                    return GetClrPropertyPathFromPathInternal(type.GetGenericArguments().First(), path, index + 1, traversalPath);
+                    if (type.IsArray)
+                    {
+                        return GetClrPropertyPathFromPathInternal(type.GetElementType(), path, index + 1, traversalPath);
+                    }
+                    else
+                    {
+                        // assume a collection
+                        return GetClrPropertyPathFromPathInternal(type.GetGenericArguments().First(), path, index + 1, traversalPath);
+                    }
                 }
             }
             else

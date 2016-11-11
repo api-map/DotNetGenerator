@@ -1,0 +1,569 @@
+﻿{
+    "SchemaItemMappings": [
+        {
+            "Id": 3929,
+            "TargetSchemaItemId": 33053,
+            "Rank": 0,
+            "Description": "Default to current date and time.",
+            "Condition": "Always",
+            "Action": {
+                "Description": "Default",
+                "Id": 4
+            },
+            "Created": "2016-08-24T16:31:14.988626",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 4101,
+            "TargetSchemaItemId": 33058,
+            "SourceSchemaItemId": 33042,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-09-06T13:11:26.073112",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 6289,
+            "TargetSchemaItemId": 33059,
+            "SourceSchemaItemId": 33041,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-11-11T12:31:20.434777",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3938,
+            "TargetSchemaItemId": 33060,
+            "Rank": 0,
+            "Description": "Default to Australia",
+            "Action": {
+                "Description": "Default",
+                "Id": 4
+            },
+            "Created": "2016-08-24T16:32:18.830107",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3930,
+            "TargetSchemaItemId": 33062,
+            "SourceSchemaItemId": 33047,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:31:30.79686",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3931,
+            "TargetSchemaItemId": 33063,
+            "SourceSchemaItemId": 33048,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:31:36.14188",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3933,
+            "TargetSchemaItemId": 33064,
+            "SourceSchemaItemId": 33049,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:31:41.432571",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3935,
+            "TargetSchemaItemId": 33065,
+            "SourceSchemaItemId": 33050,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:31:46.239334",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3942,
+            "TargetSchemaItemId": 33068,
+            "SourceSchemaItemId": 33043,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:33:18.924935",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3941,
+            "TargetSchemaItemId": 33069,
+            "SourceSchemaItemId": 33044,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:33:09.921502",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3940,
+            "TargetSchemaItemId": 33070,
+            "SourceSchemaItemId": 33045,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:33:07.173208",
+            "CreatedBy": { "Name": "Joseph" }
+        },
+        {
+            "Id": 3939,
+            "TargetSchemaItemId": 33071,
+            "SourceSchemaItemId": 33046,
+            "Rank": 1,
+            "Action": {
+                "Description": "Direct Map",
+                "Id": 1
+            },
+            "Created": "2016-08-24T16:33:03.595853",
+            "CreatedBy": { "Name": "Joseph" }
+        }
+    ],
+    "Id": 205,
+    "SourceInfo": {
+        "Roots": [
+            {
+                "title": "(no title)",
+                "key": 33040,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 0,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "billing_address",
+                        "key": 33041,
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "street_address",
+                                "key": 33043,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "city",
+                                "key": 33044,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "state",
+                                "key": 33045,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "zip",
+                                "key": 33046,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "shipping_address",
+                        "key": 33042,
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "street_address",
+                                "key": 33047,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "city",
+                                "key": 33048,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "state",
+                                "key": 33049,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "zip",
+                                "key": 33050,
+                                "type": "text",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                }
+                            },
+                            {
+                                "title": "type",
+                                "key": 33051,
+                                "type": "list of values",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                },
+                                "ExampleValue": "residential, business, "
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "address.json",
+                    "Size": 790,
+                    "Content": "{\r\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n\r\n  \"definitions\": {\r\n    \"address\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"street_address\": { \"type\": \"string\" },\r\n        \"city\":           { \"type\": \"string\" },\r\n        \"state\":          { \"type\": \"string\" },\r\n        \"zip\":            { \"type\": \"string\" }\r\n        \r\n      },\r\n      \"required\": [\"street_address\", \"city\", \"state\", \"zip\"]\r\n    }\r\n  },\r\n\r\n  \"type\": \"object\",\r\n\r\n  \"properties\": {\r\n    \"billing_address\": { \"$ref\": \"#/definitions/address\" },\r\n    \"shipping_address\": {\r\n      \"allOf\": [\r\n        { \"$ref\": \"#/definitions/address\" },\r\n        { \"properties\":\r\n          { \"type\": { \"enum\": [ \"residential\", \"business\" ] } },\r\n          \"required\": [\"type\"]\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+                    "Modified": "2016-08-24T16:30:33.298812",
+                    "Id": 226,
+                    "SchemaId": 918
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 918,
+        "Name": "address.json",
+        "Created": "2016-08-24T16:30:33.298044+00:00"
+    },
+    "TargetInfo": {
+        "Roots": [
+            {
+                "title": "purchaseOrder",
+                "key": 33052,
+                "type": "sequence",
+                "Occurrance": {
+                    "Min": 1,
+                    "Max": 1
+                },
+                "children": [
+                    {
+                        "title": "orderDate",
+                        "key": 33054,
+                        "type": "date",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "choose one of",
+                        "key": 33055,
+                        "type": "choice",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "shippingAddress",
+                                "key": 33058,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "country",
+                                        "key": 33060,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "name",
+                                        "key": 33061,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "street",
+                                        "key": 33062,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        },
+                                        "uiAnnotations": [
+                                            {
+                                                "id": 53,
+                                                "FieldName": "Address",
+                                                "ScreenShotId": 28,
+                                                "RectTop": 67,
+                                                "RectLeft": 77,
+                                                "RectWidth": 231,
+                                                "RectHeight": 31,
+                                                "ScreenName": "Shipping UI"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "city",
+                                        "key": 33063,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "state",
+                                        "key": 33064,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "zip",
+                                        "key": 33065,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "billingAddress",
+                                "key": 33059,
+                                "type": "sequence",
+                                "Occurrance": {
+                                    "Min": 1,
+                                    "Max": 1
+                                },
+                                "children": [
+                                    {
+                                        "title": "country",
+                                        "key": 33066,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "name",
+                                        "key": 33067,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "street",
+                                        "key": 33068,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "city",
+                                        "key": 33069,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "state",
+                                        "key": 33070,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "zip",
+                                        "key": 33071,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "title": "comment",
+                        "key": 33056,
+                        "type": "text",
+                        "Occurrance": {
+                            "Min": 0,
+                            "Max": 1
+                        }
+                    },
+                    {
+                        "title": "items",
+                        "key": 33057,
+                        "type": "sequence",
+                        "Occurrance": {
+                            "Min": 1,
+                            "Max": 1
+                        },
+                        "children": [
+                            {
+                                "title": "item",
+                                "key": 33072,
+                                "type": "sequence",
+                                "Occurrance": { "Min": 0 },
+                                "children": [
+                                    {
+                                        "title": "partNum",
+                                        "key": 33073,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "productName",
+                                        "key": 33074,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "quantity",
+                                        "key": 33075,
+                                        "type": "number",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "USPrice",
+                                        "key": 33076,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 1,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "comment",
+                                        "key": 33077,
+                                        "type": "text",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    },
+                                    {
+                                        "title": "shipDate",
+                                        "key": 33078,
+                                        "type": "date",
+                                        "Occurrance": {
+                                            "Min": 0,
+                                            "Max": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "comment",
+                "key": 33053,
+                "type": "text",
+                "Occurrance": {
+                    "Min": 1,
+                    "Max": 1
+                }
+            }
+        ],
+        "PhysicalSchema": {
+            "Files": [
+                {
+                    "FileName": "PurchaseOrder.xsd",
+                    "Size": 2437,
+                    "Content": "<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>\r\n\r\n  <xsd:annotation>\r\n    <xsd:documentation xml:lang='en'>\r\n      Purchase order schema for Example.com.\r\n      Copyright 2000 Example.com. All rights reserved.\r\n    </xsd:documentation>\r\n  </xsd:annotation>\r\n\r\n  <xsd:element name='purchaseOrder' type='PurchaseOrderType'/>\r\n\r\n  <xsd:element name='comment' type='xsd:string'/>\r\n\r\n  <xsd:complexType name='PurchaseOrderType'>\r\n    <xsd:sequence>\r\n      <xsd:choice>\r\n        <xsd:element name='shippingAddress' type='USAddress'/>\r\n        <xsd:element name='billingAddress' type='USAddress'/>\r\n      </xsd:choice>\r\n      <xsd:element ref='comment' minOccurs='0'/>\r\n      <xsd:element name='items'  type='Items'/>\r\n    </xsd:sequence>\r\n    <xsd:attribute name='orderDate' type='xsd:date'/>\r\n  </xsd:complexType>\r\n\r\n  <xsd:complexType name='USAddress'>\r\n    <xsd:sequence>\r\n      <xsd:element name='name'   type='xsd:string'/>\r\n      <xsd:element name='street' type='xsd:string'/>\r\n      <xsd:element name='city'   type='xsd:string'/>\r\n      <xsd:element name='state'  type='xsd:string'/>\r\n      <xsd:element name='zip'    type='xsd:decimal'/>\r\n    </xsd:sequence>\r\n    <xsd:attribute name='country' type='xsd:NMTOKEN'\r\n                   fixed='US'/>\r\n  </xsd:complexType>\r\n\r\n  <xsd:complexType name='Items'>\r\n    <xsd:sequence>\r\n      <xsd:element name='item' minOccurs='0' maxOccurs='unbounded'>\r\n        <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element name='productName' type='xsd:string'/>\r\n            <xsd:element name='quantity'>\r\n              <xsd:simpleType>\r\n                <xsd:restriction base='xsd:positiveInteger'>\r\n                  <xsd:maxExclusive value='100'/>\r\n                </xsd:restriction>\r\n              </xsd:simpleType>\r\n            </xsd:element>\r\n            <xsd:element name='USPrice'  type='xsd:decimal'/>\r\n            <xsd:element ref='comment'   minOccurs='0'/>\r\n            <xsd:element name='shipDate' type='xsd:date' minOccurs='0'/>\r\n          </xsd:sequence>\r\n          <xsd:attribute name='partNum' type='SKU' use='required'/>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n    </xsd:sequence>\r\n  </xsd:complexType>\r\n\r\n  <!-- Stock Keeping Unit, a code for identifying products -->\r\n  <xsd:simpleType name='SKU'>\r\n    <xsd:restriction base='xsd:string'>\r\n      <xsd:pattern value='\\d{3}-[A-Z]{2}'/>\r\n    </xsd:restriction>\r\n  </xsd:simpleType>\r\n\r\n</xsd:schema>",
+                    "Modified": "2016-08-24T16:30:49.488878",
+                    "Id": 227,
+                    "SchemaId": 919
+                }
+            ]
+        },
+        "Errors": "",
+        "Id": 919,
+        "Name": "PurchaseOrder.xsd",
+        "Created": "2016-08-24T16:30:49.488447+00:00"
+    },
+    "Title": "address.json to PurchaseOrder.xsd",
+    "IsRetired": false
+}

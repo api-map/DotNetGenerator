@@ -1,8 +1,6 @@
-﻿using System;
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -24,43 +22,59 @@ namespace Apimap.DotnetGenerator.Core.Generation
 
             using (StringWriter sw = new StringWriter(sb))
             {
-                provider.CreateGenerator().GenerateCodeFromNamespace(code, sw, new CodeGeneratorOptions());
+                provider.CreateGenerator().GenerateCodeFromNamespace(code.Code, sw, new CodeGeneratorOptions());
             }
 
             var result = new CodeGenerationResult() {Code = sb.ToString()};
 
             TypeGenerator.BuildGeneratedCode(result, schema.Files[0].FileName /* TODO */, new MetadataReference[0]);
-
+            result.RootTypeName = code.RootElementName;
             return result;
         }
 
-        // mostly from here: https://msdn.microsoft.com/en-us/library/aa302301.aspx
-
-        public static CodeNamespace CreateCodeNamespace(PhysicalSchema schema, string targetNamespace)
+        internal static CodeNamespaceResult CreateCodeNamespace(PhysicalSchema schema, string targetNamespace)
         {
-            XmlSchema xsd;
+            XmlSchemaSet xset = new XmlSchemaSet();
 
-            // TODO - iterate over all files, and use SchemaSet instead
-            var sr = new StringReader(schema.Files.First().Content);
-            xsd = XmlSchema.Read(sr, null);
-            xsd.Compile(null); 
-
+            foreach (var file in schema.Files)
+            {
+                var sr = new StringReader(file.Content);
+                xset.Add(XmlSchema.Read(sr, null));
+            }
+            
+            xset.Compile();
             XmlSchemas schemas = new XmlSchemas();
-            schemas.Add(xsd);
+            foreach (XmlSchema xmlSchema in xset.Schemas())
+            {
+                schemas.Add(xmlSchema);
+            }
 
             XmlSchemaImporter importer = new XmlSchemaImporter(schemas);
             
             var ns = new CodeNamespace(targetNamespace);
             var exporter = new XmlCodeExporter(ns);
             
-            foreach (XmlSchemaElement element in xsd.Elements.Values)
+            var result = new CodeNamespaceResult();
+            foreach (XmlSchemaElement element in xset.GlobalElements.Values)
             {
-                // TODO - can this be used to determine 'root' elements better?
                 XmlTypeMapping mapping = importer.ImportTypeMapping(element.QualifiedName);
+
+                if (string.IsNullOrEmpty(result.RootElementName))
+                {
+                    result.RootElementName = mapping.TypeName;
+                }
+
                 exporter.ExportTypeMapping(mapping);
             }
 
-            return ns;
+            result.Code = ns;
+            return result;
+        }
+
+        internal class CodeNamespaceResult
+        {
+            internal CodeNamespace Code;
+            internal string RootElementName;
         }
     }
 }
