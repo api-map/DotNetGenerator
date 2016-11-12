@@ -116,6 +116,8 @@ namespace Apimap.DotnetGenerator.Core.Test
         [Fact]
         public void CanGenerateCodeForJsonToXsdMapping()
         {
+            // This test has some issues - specifically the class generated from the JSON schema is weird. Until that is resolved it won't pass.
+
             var tg = new TypeGenerator();
 
             var mapping = JsonConvert.DeserializeObject<Mapping>(File.ReadAllText(TestFiles.JsonToXsd));
@@ -128,6 +130,9 @@ namespace Apimap.DotnetGenerator.Core.Test
 
             Assert.NotNull(source.Assembly);
             Assert.NotNull(target.Assembly);
+
+            Assert.NotNull(source.RootType);
+            Assert.NotNull(target.RootType);
 
             mapping.RebuildRelationships();
             var mappings = new Dictionary<int, TypeMapping>();

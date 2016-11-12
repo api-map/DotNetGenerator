@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Apimap.DotnetGenerator.Core.Model
@@ -132,6 +133,8 @@ namespace Apimap.DotnetGenerator.Core.Model
     {
         public PropertyInfo Property { get; set; }
 
+        public ChoiceInfo ChoiceInfo { get; set; } 
+
         public bool IsArray
         {
             get
@@ -145,5 +148,10 @@ namespace Apimap.DotnetGenerator.Core.Model
                        (Property.PropertyType.IsGenericType && typeof(IList).IsAssignableFrom(Property.PropertyType));
             }
         }
+    }
+
+    public class ChoiceInfo
+    {
+        public XmlElementAttribute ElementAttribute { get; set; }
     }
 }
